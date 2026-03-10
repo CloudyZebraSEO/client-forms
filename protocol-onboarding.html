@@ -31,8 +31,7 @@
   .checkbox-group label:hover { border-color: var(--primary); }
   .checkbox-group input:checked + span { color: var(--primary); font-weight: 600; }
   .checkbox-group label:has(input:checked) { border-color: var(--primary); background: rgba(26,86,219,0.05); }
-  .license-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 0.5rem; }
-  .license-row .license-label { font-size: 0.9rem; font-weight: 500; grid-column: 1 / -1; }
+  .license-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem; margin-bottom: 0.5rem; }
   .rank-list { list-style: none; padding: 0; }
   .rank-list li { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem; padding: 0.4rem 0.6rem; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; }
   .rank-list li .rank-num { width: 24px; height: 24px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; flex-shrink: 0; }
@@ -41,14 +40,14 @@
   .progress-bar { flex: 1; height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
   .progress-fill { height: 100%; background: var(--primary); border-radius: 4px; transition: width 0.4s ease; }
   .progress-text { font-size: 0.85rem; color: var(--muted); white-space: nowrap; }
-  @media (max-width: 600px) { .header h1 { font-size: 1.3rem; } .section { padding: 1rem; } .checkbox-group { flex-direction: column; } .license-row { grid-template-columns: 1fr; } }
+  @media (max-width: 600px) { .header h1 { font-size: 1.3rem; } .section { padding: 1rem; } .checkbox-group { flex-direction: column; } .license-row { grid-template-columns: 1fr; gap: 0.35rem; margin-bottom: 0.75rem; } }
 </style>
 </head>
 <body>
 
 <div class="header">
   <h1>Protocol Electric & Air</h1>
-  <p>Client Questionnaire — Fill in what you can, skip what you don't know. Every answer saves automatically.</p>
+  <p>Client Questionnaire — Fill in what you can, skip what you don't know. Every answer saves automatically. You can safely close this page and return anytime to continue where you left off.</p>
 </div>
 <div class="save-banner" id="saveBanner">Saved</div>
 
@@ -115,21 +114,58 @@
   <div class="section-title">Licensing & Legal</div>
 
   <div class="field">
-    <label>What is your NJ contractor license number(s) and from what municipality?</label>
+    <label>What are your NJ contractor license number(s), who holds them, and from what municipality?</label>
+    <div class="hint">Add each licensed team member. Leave blank rows empty if you don't need them.</div>
+
+    <div style="margin-bottom: 0.75rem; font-weight: 600; font-size: 0.95rem; color: var(--primary);">Electrical Licenses</div>
     <div class="license-row">
-      <div class="license-label">Electrical License</div>
-      <input type="text" data-key="license_electrical_num" placeholder="License #">
-      <input type="text" data-key="license_electrical_from" placeholder="Issued from (municipality)">
+      <input type="text" data-key="elec_lic1_name" placeholder="Team member name">
+      <input type="text" data-key="elec_lic1_num" placeholder="License #">
+      <input type="text" data-key="elec_lic1_from" placeholder="Issued from (municipality)">
     </div>
     <div class="license-row">
-      <div class="license-label">HVAC License</div>
-      <input type="text" data-key="license_hvac_num" placeholder="License #">
-      <input type="text" data-key="license_hvac_from" placeholder="Issued from (municipality)">
+      <input type="text" data-key="elec_lic2_name" placeholder="Team member name">
+      <input type="text" data-key="elec_lic2_num" placeholder="License #">
+      <input type="text" data-key="elec_lic2_from" placeholder="Issued from (municipality)">
     </div>
     <div class="license-row">
-      <div class="license-label">Plumbing License (if applicable)</div>
-      <input type="text" data-key="license_plumbing_num" placeholder="License # or N/A">
-      <input type="text" data-key="license_plumbing_from" placeholder="Issued from (municipality)">
+      <input type="text" data-key="elec_lic3_name" placeholder="Team member name">
+      <input type="text" data-key="elec_lic3_num" placeholder="License #">
+      <input type="text" data-key="elec_lic3_from" placeholder="Issued from (municipality)">
+    </div>
+
+    <div style="margin-top: 1rem; margin-bottom: 0.75rem; font-weight: 600; font-size: 0.95rem; color: var(--primary);">HVAC Licenses</div>
+    <div class="license-row">
+      <input type="text" data-key="hvac_lic1_name" placeholder="Team member name">
+      <input type="text" data-key="hvac_lic1_num" placeholder="License #">
+      <input type="text" data-key="hvac_lic1_from" placeholder="Issued from (municipality)">
+    </div>
+    <div class="license-row">
+      <input type="text" data-key="hvac_lic2_name" placeholder="Team member name">
+      <input type="text" data-key="hvac_lic2_num" placeholder="License #">
+      <input type="text" data-key="hvac_lic2_from" placeholder="Issued from (municipality)">
+    </div>
+    <div class="license-row">
+      <input type="text" data-key="hvac_lic3_name" placeholder="Team member name">
+      <input type="text" data-key="hvac_lic3_num" placeholder="License #">
+      <input type="text" data-key="hvac_lic3_from" placeholder="Issued from (municipality)">
+    </div>
+
+    <div style="margin-top: 1rem; margin-bottom: 0.75rem; font-weight: 600; font-size: 0.95rem; color: var(--primary);">Plumbing Licenses (if applicable)</div>
+    <div class="license-row">
+      <input type="text" data-key="plumb_lic1_name" placeholder="Team member name">
+      <input type="text" data-key="plumb_lic1_num" placeholder="License # or N/A">
+      <input type="text" data-key="plumb_lic1_from" placeholder="Issued from (municipality)">
+    </div>
+    <div class="license-row">
+      <input type="text" data-key="plumb_lic2_name" placeholder="Team member name">
+      <input type="text" data-key="plumb_lic2_num" placeholder="License #">
+      <input type="text" data-key="plumb_lic2_from" placeholder="Issued from (municipality)">
+    </div>
+    <div class="license-row">
+      <input type="text" data-key="plumb_lic3_name" placeholder="Team member name">
+      <input type="text" data-key="plumb_lic3_num" placeholder="License #">
+      <input type="text" data-key="plumb_lic3_from" placeholder="Issued from (municipality)">
     </div>
   </div>
   <div class="field">
@@ -382,6 +418,26 @@
   <div class="field">
     <label>Are you a dealer or preferred installer for any manufacturer?</label>
     <textarea data-key="dealer_status" placeholder="e.g., Carrier Factory Authorized Dealer, Generac dealer, etc."></textarea>
+  </div>
+  <div class="field">
+    <label>Is any team member certified in an EV charger installer program? (Check all that apply)</label>
+    <div class="hint">These certifications add significant credibility and can unlock manufacturer referrals and government-funded projects.</div>
+    <div class="checkbox-group">
+      <label><input type="checkbox" data-key="ev_cert_evitp" value="yes"><span>EVITP (Electric Vehicle Infrastructure Training Program)</span></label>
+      <label><input type="checkbox" data-key="ev_cert_qmerit" value="yes"><span>QMerit / Tesla Certified Installer</span></label>
+      <label><input type="checkbox" data-key="ev_cert_chargepoint" value="yes"><span>ChargePoint Certified Installer</span></label>
+      <label><input type="checkbox" data-key="ev_cert_juicebox" value="yes"><span>JuiceBox (Enel X) Certified Installer</span></label>
+    </div>
+  </div>
+  <div class="field">
+    <label>If not certified in any of the above, would you like details on how to join these programs?</label>
+    <div class="hint">They add a lot of credibility, unlock manufacturer leads, and EVITP is required for government-funded EV charging projects.</div>
+    <select data-key="ev_cert_interest">
+      <option value="">-- Select --</option>
+      <option value="yes">Yes, send me details</option>
+      <option value="maybe">Maybe, tell me more first</option>
+      <option value="no">No, not interested right now</option>
+    </select>
   </div>
 </div>
 
