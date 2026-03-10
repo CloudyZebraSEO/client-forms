@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Protocol Electric & Air — Client Questionnaire</title>
+<style>
+  :root { --primary: #1a56db; --success: #059669; --bg: #f8fafc; --card: #ffffff; --border: #e2e8f0; --text: #1e293b; --muted: #64748b; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .header { background: linear-gradient(135deg, #1e3a5f 0%, #1a56db 100%); color: white; padding: 2rem 1rem; text-align: center; }
+  .header h1 { font-size: 1.6rem; margin-bottom: 0.5rem; }
+  .header p { opacity: 0.85; font-size: 0.95rem; max-width: 600px; margin: 0 auto; }
+  .save-banner { background: var(--success); color: white; text-align: center; padding: 0.4rem; font-size: 0.85rem; opacity: 0; transition: opacity 0.3s; position: sticky; top: 0; z-index: 100; }
+  .save-banner.visible { opacity: 1; }
+  .container { max-width: 720px; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
+  .section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .section-title { font-size: 1.15rem; font-weight: 700; color: var(--primary); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--primary); }
+  .field { margin-bottom: 1.25rem; }
+  .field:last-child { margin-bottom: 0; }
+  .field label { display: block; font-weight: 600; margin-bottom: 0.35rem; font-size: 0.95rem; }
+  .field .hint { font-size: 0.82rem; color: var(--muted); margin-bottom: 0.35rem; }
+  input[type="text"], input[type="email"], input[type="tel"], input[type="url"], textarea, select {
+    width: 100%; padding: 0.6rem 0.75rem; border: 1px solid var(--border); border-radius: 8px;
+    font-size: 0.95rem; font-family: inherit; transition: border-color 0.2s; background: white;
+  }
+  input:focus, textarea:focus, select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(26,86,219,0.1); }
+  textarea { min-height: 80px; resize: vertical; }
+  .checkbox-group { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .checkbox-group label { display: flex; align-items: center; gap: 0.4rem; font-weight: 400; background: var(--bg); padding: 0.4rem 0.75rem; border-radius: 6px; border: 1px solid var(--border); cursor: pointer; font-size: 0.9rem; transition: all 0.15s; }
+  .checkbox-group label:hover { border-color: var(--primary); }
+  .checkbox-group input:checked + span { color: var(--primary); font-weight: 600; }
+  .checkbox-group label:has(input:checked) { border-color: var(--primary); background: rgba(26,86,219,0.05); }
+  .saved-indicator { display: inline-block; color: var(--success); font-size: 0.8rem; margin-left: 0.5rem; opacity: 0; transition: opacity 0.3s; }
+  .saved-indicator.show { opacity: 1; }
+  .progress { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid var(--border); padding: 0.6rem 1rem; display: flex; align-items: center; gap: 1rem; z-index: 100; }
+  .progress-bar { flex: 1; height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--primary); border-radius: 4px; transition: width 0.4s ease; }
+  .progress-text { font-size: 0.85rem; color: var(--muted); white-space: nowrap; }
+  @media (max-width: 600px) { .header h1 { font-size: 1.3rem; } .section { padding: 1rem; } .checkbox-group { flex-direction: column; } }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Protocol Electric & Air</h1>
+  <p>Client Questionnaire — Fill in what you can, skip what you don't know. Every answer saves automatically.</p>
+</div>
+<div class="save-banner" id="saveBanner">Saved</div>
+
+<div class="container">
+
+<!-- Section 1: Website & Content -->
+<div class="section">
+  <div class="section-title">Website & Content</div>
+
+  <div class="field">
+    <label>Are you happy with the current website design, or is a redesign on the table?</label>
+    <textarea data-key="website_happy"></textarea>
+  </div>
+  <div class="field">
+    <label>Who manages your current website? Do you have WordPress admin credentials?</label>
+    <textarea data-key="website_manager"></textarea>
+  </div>
+  <div class="field">
+    <label>What is your WordPress admin URL?</label>
+    <div class="hint">Usually protocolsvc.com/wp-admin</div>
+    <input type="url" data-key="wp_admin_url" placeholder="https://protocolsvc.com/wp-admin">
+  </div>
+  <div class="field">
+    <label>Do you have access to Google Search Console for protocolsvc.com?</label>
+    <select data-key="search_console_access">
+      <option value="">-- Select --</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+      <option value="unsure">Not sure</option>
+    </select>
+  </div>
+  <div class="field">
+    <label>Do you have Google Analytics installed? If so, can you share access?</label>
+    <select data-key="analytics_access">
+      <option value="">-- Select --</option>
+      <option value="yes">Yes, can share access</option>
+      <option value="yes_no_share">Yes, but not sure how to share</option>
+      <option value="no">No</option>
+      <option value="unsure">Not sure</option>
+    </select>
+  </div>
+  <div class="field">
+    <label>The website email shows protocol_electrical@yahoo.com — should we update to a different email?</label>
+    <input type="text" data-key="email_preference" placeholder="e.g., protocolairpartners@gmail.com or a branded email">
+  </div>
+  <div class="field">
+    <label>Would you approve us making content and SEO changes to your existing pages?</label>
+    <select data-key="approve_changes">
+      <option value="">-- Select --</option>
+      <option value="yes">Yes, go ahead</option>
+      <option value="review_first">Yes, but I want to review first</option>
+      <option value="discuss">Let's discuss first</option>
+    </select>
+  </div>
+  <div class="field">
+    <label>Do you have any brand voice preferences?</label>
+    <div class="hint">Professional, friendly, technical, casual, etc.</div>
+    <input type="text" data-key="brand_voice" placeholder="e.g., Professional but approachable">
+  </div>
+  <div class="field">
+    <label>Are there any claims on the website that are no longer accurate?</label>
+    <textarea data-key="inaccurate_claims" placeholder="e.g., outdated promotions, services no longer offered, etc."></textarea>
+  </div>
+  <div class="field">
+    <label>Is protocolelectric.net still a domain you own? What's its status?</label>
+    <input type="text" data-key="protocolelectric_net_status" placeholder="e.g., Still own it, redirects to main site">
+  </div>
+</div>
+
+<!-- Section 2: Reviews & Reputation -->
+<div class="section">
+  <div class="section-title">Reviews & Reputation</div>
+
+  <div class="field">
+    <label>Do you currently ask customers for Google reviews? What's your process?</label>
+    <textarea data-key="review_process" placeholder="e.g., We ask at the end of a job, or we don't currently ask"></textarea>
+  </div>
+  <div class="field">
+    <label>Would you be open to implementing an automated review request system?</label>
+    <select data-key="auto_reviews">
+      <option value="">-- Select --</option>
+      <option value="yes">Yes, absolutely</option>
+      <option value="maybe">Maybe, tell me more</option>
+      <option value="no">No, not interested</option>
+    </select>
+  </div>
+  <div class="field">
+    <label>Do you have any testimonials or case studies we can feature on the website?</label>
+    <textarea data-key="testimonials"></textarea>
+  </div>
+  <div class="field">
+    <label>Have you received any negative reviews? How were they handled?</label>
+    <textarea data-key="negative_reviews"></textarea>
+  </div>
+  <div class="field">
+    <label>Are you listed on any directories?</label>
+    <div class="hint">Yelp, BBB, HomeAdvisor, Angie's List, Thumbtack, etc.</div>
+    <textarea data-key="directory_listings" placeholder="List any directories you know you're on"></textarea>
+  </div>
+  <div class="field">
+    <label>Do you have social media accounts beyond Facebook?</label>
+    <input type="text" data-key="social_media" placeholder="e.g., Instagram, YouTube, Nextdoor">
+  </div>
+</div>
+
+<!-- Section 3: Licensing & Legal -->
+<div class="section">
+  <div class="section-title">Licensing & Legal</div>
+
+  <div class="field">
+    <label>What is the exact legal business name?</label>
+    <div class="hint">Protocol Services LLC? Protocol Electric & Air LLC?</div>
+    <input type="text" data-key="legal_name" placeholder="Exact name as registered">
+  </div>
+  <div class="field">
+    <label>What name do you want to rank for on Google?</label>
+    <input type="text" data-key="ranking_name" placeholder="e.g., Protocol Electric & Air">
+  </div>
+  <div class="field">
+    <label>Do you have a registered DBA? If so, what is it?</label>
+    <input type="text" data-key="dba">
+  </div>
+  <div class="field">
+    <label>NJ Electrical License Number</label>
+    <input type="text" data-key="license_electrical" placeholder="License #">
+  </div>
+  <div class="field">
+    <label>NJ HVAC License Number</label>
+    <input type="text" data-key="license_hvac" placeholder="License #">
+  </div>
+  <div class="field">
+    <label>NJ Plumbing License Number (if applicable)</label>
+    <input type="text" data-key="license_plumbing" placeholder="License # or N/A">
+  </div>
+  <div class="field">
+    <label>Are you licensed in PA as well? If so, what license numbers?</label>
+    <input type="text" data-key="license_pa" placeholder="PA license # or N/A">
+  </div>
+  <div class="field">
+    <label>What year was the company actually founded?</label>
+    <div class="hint">Website says both 2011 and 1962 — which is correct?</div>
+    <input type="text" data-key="founded_year" placeholder="e.g., 2011">
+  </div>
+  <div class="field">
+    <label>Is the business a partnership, LLC, or corporation?</label>
+    <select data-key="business_type">
+      <option value="">-- Select --</option>
+      <option value="llc">LLC</option>
+      <option value="partnership">Partnership</option>
+      <option value="corporation">Corporation</option>
+      <option value="sole_prop">Sole Proprietorship</option>
+      <option value="other">Other</option>
+    </select>
+  </div>
+  <div class="field">
+    <label>Who are the business partners/owners?</label>
+    <div class="hint">We know Chad Harrison — anyone else?</div>
+    <textarea data-key="owners" placeholder="Name(s) and roles"></textarea>
+  </div>
+</div>
+
+<!-- Section 4: Location & Service Area -->
+<div class="section">
+  <div class="section-title">Location & Service Area</div>
+
+  <div class="field">
+    <label>Is 350 US-46 Suite 217, Rockaway, NJ 07866 your actual office/dispatch location?</label>
+    <select data-key="address_confirmed">
+      <option value="">-- Select --</option>
+      <option value="yes">Yes, that's correct</option>
+      <option value="office_only">It's our office but we don't dispatch from there</option>
+      <option value="virtual">It's a virtual/mailing address</option>
+      <option value="different">Our actual location is different</option>
+    </select>
+  </div>
+  <div class="field">
+    <label>If your location is different, what is the correct address?</label>
+    <input type="text" data-key="correct_address" placeholder="Leave blank if 350 US-46 is correct">
+  </div>
+  <div class="field">
+    <label>Do you have any other physical locations, warehouses, or satellite offices?</label>
+    <textarea data-key="other_locations"></textarea>
+  </div>
+  <div class="field">
+    <label>Is Stewartsville, NJ 08886 still a valid address? (Shows on website contact page)</label>
+    <input type="text" data-key="stewartsville_status" placeholder="e.g., Old address, no longer valid">
+  </div>
+  <div class="field">
+    <label>What specific towns/areas do you serve most frequently? (Top 10)</label>
+    <textarea data-key="top_towns" placeholder="e.g., Rockaway, Denville, Dover, Randolph, Parsippany..."></textarea>
+  </div>
+  <div class="field">
+    <label>What is the farthest you'll travel for a job?</label>
+    <input type="text" data-key="max_travel" placeholder="e.g., 30 minutes, 25 miles">
+  </div>
+  <div class="field">
+    <label>Are there any areas you specifically do NOT want to serve?</label>
+    <input type="text" data-key="excluded_areas">
+  </div>
+  <div class="field">
+    <label>Do you serve both NJ and PA? If PA, which counties/areas?</label>
+    <input type="text" data-key="pa_service" placeholder="e.g., Yes — Northampton and Lehigh counties">
+  </div>
+</div>
+
+<!-- Section 5: Services -->
+<div class="section">
+  <div class="section-title">Services</div>
+
+  <div class="field">
+    <label>Which services generate the most revenue? (Rank your top 5)</label>
+    <textarea data-key="top_revenue_services" placeholder="1. &#10;2. &#10;3. &#10;4. &#10;5. "></textarea>
+  </div>
+  <div class="field">
+    <label>Which services do you WANT to grow the most?</label>
+    <textarea data-key="growth_services"></textarea>
+  </div>
+  <div class="field">
+    <label>Do you offer plumbing services?</label>
+    <div class="hint">Mentioned on your About page but no service pages exist</div>
+    <select data-key="plumbing">
+      <option value="">-- Select --</option>
+      <option value="yes">Yes, we offer plumbing</option>
+      <option value="limited">Limited plumbing (water heaters only, etc.)</option>
+      <option value="no">No, we don't do plumbing</option>
+      <option value="planned">Not yet, but planning to add it</option>
+    </select>
+  </div>
+  <div class="field">
+    <label>Do you offer generator installation/service?</label>
+    <select data-key="generators">
+      <option value="">-- Select --</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+      <option value="planned">Planning to add</option>
+    </select>
+  </div>
+  <div class="field">
+    <label>Do you do commercial work, or strictly residential?</label>
+    <select data-key="commercial">
+      <option value="">-- Select --</option>
+      <option value="residential_only">Strictly residential</option>
+      <option value="mostly_residential">Mostly residential, some commercial</option>
+      <option value="both">Both residential and commercial</option>
+      <option value="mostly_commercial">Mostly commercial</option>
+    </select>
+  </div>
+  <div class="field">
+    <label>Do you offer maintenance/service plans?</label>
+    <div class="hint">Your site mentions a "Service Partner Plan" — is this active?</div>
+    <select data-key="service_plans">
+      <option value="">-- Select --</option>
+      <option value="yes_active">Yes, actively selling</option>
+      <option value="yes_inactive">We have one but don't promote it</option>
+      <option value="no">No</option>
+      <option value="planned">Planning to launch one</option>
+    </select>
+  </div>
+  <div class="field">
+    <label>Do you offer smart home/home automation services?</label>
+    <select data-key="smart_home">
+      <option value="">-- Select --</option>
+      <option value="yes">Yes</option>
+      <option value="limited">Some (smart thermostats, etc.)</option>
+      <option value="no">No</option>
+    </select>
+  </div>
+
+  <div class="field">
+    <label>Which additional electrical services do you offer? (Check all that apply)</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" data-key="svc_ev_charger" value="yes"><span>EV Charger Installation</span></label>
+      <label><input type="checkbox" data-key="svc_panel_upgrade" value="yes"><span>Panel Upgrades</span></label>
+      <label><input type="checkbox" data-key="svc_whole_house_rewiring" value="yes"><span>Whole-House Rewiring</span></label>
+      <label><input type="checkbox" data-key="svc_recessed_lighting" value="yes"><span>Recessed Lighting</span></label>
+      <label><input type="checkbox" data-key="svc_ceiling_fans" value="yes"><span>Ceiling Fan Installation</span></label>
+      <label><input type="checkbox" data-key="svc_smoke_co" value="yes"><span>Smoke/CO Detectors</span></label>
+      <label><input type="checkbox" data-key="svc_surge_protection" value="yes"><span>Whole-House Surge Protection</span></label>
+      <label><input type="checkbox" data-key="svc_landscape_lighting" value="yes"><span>Landscape/Outdoor Lighting</span></label>
+      <label><input type="checkbox" data-key="svc_knob_tube" value="yes"><span>Knob & Tube Replacement</span></label>
+      <label><input type="checkbox" data-key="svc_hot_tub_wiring" value="yes"><span>Hot Tub/Pool Wiring</span></label>
+      <label><input type="checkbox" data-key="svc_security_systems" value="yes"><span>Security System Wiring</span></label>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>What HVAC brands do you install? (Check all that apply)</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" data-key="brand_carrier" value="yes"><span>Carrier</span></label>
+      <label><input type="checkbox" data-key="brand_lennox" value="yes"><span>Lennox</span></label>
+      <label><input type="checkbox" data-key="brand_trane" value="yes"><span>Trane</span></label>
+      <label><input type="checkbox" data-key="brand_rheem" value="yes"><span>Rheem</span></label>
+      <label><input type="checkbox" data-key="brand_goodman" value="yes"><span>Goodman/Daikin</span></label>
+      <label><input type="checkbox" data-key="brand_mitsubishi" value="yes"><span>Mitsubishi (Mini-Splits)</span></label>
+      <label><input type="checkbox" data-key="brand_fujitsu" value="yes"><span>Fujitsu</span></label>
+      <label><input type="checkbox" data-key="brand_bosch" value="yes"><span>Bosch</span></label>
+      <label><input type="checkbox" data-key="brand_york" value="yes"><span>York</span></label>
+      <label><input type="checkbox" data-key="brand_amana" value="yes"><span>Amana</span></label>
+      <label><input type="checkbox" data-key="brand_generac" value="yes"><span>Generac (Generators)</span></label>
+    </div>
+  </div>
+  <div class="field">
+    <label>Other brands not listed above?</label>
+    <input type="text" data-key="other_brands" placeholder="e.g., American Standard, Ruud, etc.">
+  </div>
+
+  <div class="field">
+    <label>What EV charger brands do you install?</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" data-key="ev_chargepoint" value="yes"><span>ChargePoint</span></label>
+      <label><input type="checkbox" data-key="ev_tesla" value="yes"><span>Tesla Wall Connector</span></label>
+      <label><input type="checkbox" data-key="ev_juicebox" value="yes"><span>JuiceBox</span></label>
+      <label><input type="checkbox" data-key="ev_grizzle" value="yes"><span>Grizzl-E</span></label>
+      <label><input type="checkbox" data-key="ev_wallbox" value="yes"><span>Wallbox</span></label>
+      <label><input type="checkbox" data-key="ev_clipper_creek" value="yes"><span>ClipperCreek</span></label>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Are you a dealer or preferred installer for any manufacturer?</label>
+    <textarea data-key="dealer_status" placeholder="e.g., Carrier Factory Authorized Dealer, Generac dealer, etc."></textarea>
+  </div>
+  <div class="field">
+    <label>What are your typical project price ranges?</label>
+    <div style="display: grid; gap: 0.5rem;">
+      <div><label style="font-weight:400; font-size:0.9rem;">Average residential electrical job: </label><input type="text" data-key="price_electrical" placeholder="$" style="width: 150px; display: inline-block;"></div>
+      <div><label style="font-weight:400; font-size:0.9rem;">Average HVAC installation: </label><input type="text" data-key="price_hvac" placeholder="$" style="width: 150px; display: inline-block;"></div>
+      <div><label style="font-weight:400; font-size:0.9rem;">Average service call: </label><input type="text" data-key="price_service_call" placeholder="$" style="width: 150px; display: inline-block;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Section 6: Google Business Profiles -->
+<div class="section">
+  <div class="section-title">Google Business Profiles</div>
+
+  <div class="field">
+    <label>We found 3 Google Business Profiles linked to your phone number:</label>
+    <div class="hint" style="margin-bottom: 0.75rem;">
+      1. "Protocol Services" (6 reviews)<br>
+      2. "Protocol Services LLC" (2 reviews)<br>
+      3. "Protocol Electric and Security" (42 reviews)
+    </div>
+    <label>Which profiles do you have login access to?</label>
+    <textarea data-key="gbp_access" placeholder="e.g., I can log into #1 and #2 but not #3"></textarea>
+  </div>
+  <div class="field">
+    <label>Do you know who manages the "Protocol Electric and Security" profile? Can we get access?</label>
+    <textarea data-key="gbp_legacy_access"></textarea>
+  </div>
+  <div class="field">
+    <label>The primary profile is categorized as "Marketing consultant" — did you set that intentionally?</label>
+    <select data-key="gbp_category_intentional">
+      <option value="">-- Select --</option>
+      <option value="no_mistake">No, that's a mistake</option>
+      <option value="yes">Yes, intentionally</option>
+      <option value="dont_know">I didn't know about that</option>
+    </select>
+  </div>
+  <div class="field">
+    <label>Are you currently running any Google Ads?</label>
+    <select data-key="google_ads">
+      <option value="">-- Select --</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+      <option value="past">Not now, but have in the past</option>
+    </select>
+  </div>
+</div>
+
+<!-- Section 7: Team & Credentials -->
+<div class="section">
+  <div class="section-title">Team & Credentials</div>
+
+  <div class="field">
+    <label>How many employees/technicians do you have?</label>
+    <input type="text" data-key="employee_count" placeholder="e.g., 8 techs + 2 office staff">
+  </div>
+  <div class="field">
+    <label>Can you provide names, titles, and brief bios for key team members?</label>
+    <textarea data-key="team_bios" placeholder="Name — Title — Brief bio&#10;e.g., Chad Harrison — Co-Owner — 14 years experience..."></textarea>
+  </div>
+  <div class="field">
+    <label>Do you have professional headshot photos of team members?</label>
+    <select data-key="team_photos">
+      <option value="">-- Select --</option>
+      <option value="yes">Yes</option>
+      <option value="some">Some team members</option>
+      <option value="no">No, but can get them</option>
+      <option value="no_cant">No</option>
+    </select>
+  </div>
+  <div class="field">
+    <label>What certifications do your technicians hold?</label>
+    <div class="hint">NATE, EPA 608, NEC training, manufacturer certifications, etc.</div>
+    <textarea data-key="certifications" placeholder="List all certifications held by your team"></textarea>
+  </div>
+  <div class="field">
+    <label>Are you a member of any trade associations?</label>
+    <div class="hint">NECA, IEC, ACCA, Nexstar, PHCC, BBB, local chamber, etc.</div>
+    <textarea data-key="associations" placeholder="List memberships"></textarea>
+  </div>
+  <div class="field">
+    <label>Have you won any awards or received any recognition?</label>
+    <textarea data-key="awards"></textarea>
+  </div>
+  <div class="field">
+    <label>Are you BBB accredited? What's your rating?</label>
+    <input type="text" data-key="bbb_status" placeholder="e.g., Yes, A+ rating">
+  </div>
+</div>
+
+<!-- Section 8: Marketing & Competition -->
+<div class="section">
+  <div class="section-title">Marketing & Competition</div>
+
+  <div class="field">
+    <label>Are you currently doing any marketing?</label>
+    <div class="hint">Paid ads, direct mail, door hangers, etc.</div>
+    <textarea data-key="current_marketing"></textarea>
+  </div>
+  <div class="field">
+    <label>How do most of your current customers find you?</label>
+    <textarea data-key="customer_source" placeholder="e.g., Word of mouth, Google, referrals"></textarea>
+  </div>
+  <div class="field">
+    <label>What is your current monthly marketing budget?</label>
+    <input type="text" data-key="marketing_budget" placeholder="$">
+  </div>
+  <div class="field">
+    <label>Who do you consider your top 3 competitors in electrical?</label>
+    <textarea data-key="competitors_electrical"></textarea>
+  </div>
+  <div class="field">
+    <label>Who do you consider your top 3 competitors in HVAC?</label>
+    <textarea data-key="competitors_hvac"></textarea>
+  </div>
+  <div class="field">
+    <label>What do you think you do better than your competitors?</label>
+    <textarea data-key="competitive_advantage"></textarea>
+  </div>
+  <div class="field">
+    <label>What are your typical response times?</label>
+    <select data-key="response_time">
+      <option value="">-- Select --</option>
+      <option value="same_day">Same day</option>
+      <option value="24hrs">Within 24 hours</option>
+      <option value="48hrs">Within 48 hours</option>
+      <option value="varies">Varies by season</option>
+    </select>
+  </div>
+  <div class="field">
+    <label>Do you offer any warranties or guarantees beyond manufacturer warranty?</label>
+    <textarea data-key="warranties" placeholder="e.g., 1-year labor warranty, satisfaction guarantee"></textarea>
+  </div>
+  <div class="field">
+    <label>What financing options are currently active?</label>
+    <div class="hint">Site mentions PSE&G, JCP&L, Wells Fargo</div>
+    <textarea data-key="financing" placeholder="List active financing programs"></textarea>
+  </div>
+</div>
+
+<!-- Section 9: Goals & Priorities -->
+<div class="section">
+  <div class="section-title">Goals & Priorities</div>
+
+  <div class="field">
+    <label>What is your #1 business goal for the next 12 months?</label>
+    <textarea data-key="top_goal"></textarea>
+  </div>
+  <div class="field">
+    <label>Are you looking to hire more technicians?</label>
+    <div class="hint">Important to know if you have capacity to handle more leads</div>
+    <select data-key="hiring">
+      <option value="">-- Select --</option>
+      <option value="yes_actively">Yes, actively hiring</option>
+      <option value="yes_open">Open to it if leads increase</option>
+      <option value="no_full">No, we're at capacity</option>
+      <option value="no_growing">No, but growing the team is planned</option>
+    </select>
+  </div>
+  <div class="field">
+    <label>Is there seasonality to your business? Which months are busiest?</label>
+    <input type="text" data-key="seasonality" placeholder="e.g., Summer busiest for AC, winter for heating">
+  </div>
+  <div class="field">
+    <label>What would "success" look like from SEO in 6 months? 12 months?</label>
+    <textarea data-key="seo_success" placeholder="e.g., 50 leads/month, page 1 for 'electrician Rockaway NJ'"></textarea>
+  </div>
+  <div class="field">
+    <label>Are there specific services you want to push hardest?</label>
+    <textarea data-key="priority_services"></textarea>
+  </div>
+  <div class="field">
+    <label>Do you have a preferred geographic area for growth?</label>
+    <input type="text" data-key="growth_area" placeholder="e.g., Parsippany, Morristown area">
+  </div>
+  <div class="field">
+    <label>What's your current lead volume? How many calls/inquiries per week?</label>
+    <input type="text" data-key="lead_volume" placeholder="e.g., ~20 calls/week">
+  </div>
+  <div class="field">
+    <label>What is your close rate on estimates?</label>
+    <input type="text" data-key="close_rate" placeholder="e.g., About 60%">
+  </div>
+</div>
+
+<!-- Section 10: Photos & Media -->
+<div class="section">
+  <div class="section-title">Photos & Media</div>
+
+  <div class="field">
+    <label>Do you have photos of the following? (Check all that apply)</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" data-key="photo_team" value="yes"><span>Team / Technicians</span></label>
+      <label><input type="checkbox" data-key="photo_vehicles" value="yes"><span>Company Vehicles</span></label>
+      <label><input type="checkbox" data-key="photo_office" value="yes"><span>Office / Facility</span></label>
+      <label><input type="checkbox" data-key="photo_projects" value="yes"><span>Completed Projects (Before/After)</span></label>
+      <label><input type="checkbox" data-key="photo_equipment" value="yes"><span>Equipment Installations</span></label>
+    </div>
+  </div>
+  <div class="field">
+    <label>Do you have any video content?</label>
+    <select data-key="video_content">
+      <option value="">-- Select --</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+      <option value="planned">No, but interested in creating some</option>
+    </select>
+  </div>
+  <div class="field">
+    <label>Do you have a high-resolution version of your logo?</label>
+    <select data-key="logo_hires">
+      <option value="">-- Select --</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+      <option value="unsure">Not sure</option>
+    </select>
+  </div>
+  <div class="field">
+    <label>What are your official brand colors?</label>
+    <div class="hint">Hex codes or a brand guide if you have one</div>
+    <input type="text" data-key="brand_colors" placeholder="e.g., Navy blue #1e3a5f and orange #f97316">
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<div class="progress">
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-text" id="progressText">0 / 0 answered</div>
+</div>
+
+<script>
+const SUPABASE_URL = 'https://vpivlccblvorpjcnnjfa.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZwaXZsY2NibHZvcnBqY25uamZhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5NDYwMzYsImV4cCI6MjA4ODUyMjAzNn0.MXvqRuziGqlQYVlcYlYrT2nngWdHoBA0C4zl22eMk8o';
+const CLIENT_ID = '3f935b04-b25b-4674-a279-a44943300a8f';
+const SLUG = 'protocol-onboarding';
+
+let responses = {};
+let saveTimeout = null;
+
+// Load existing responses
+async function loadResponses() {
+  try {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/questionnaire_responses?client_id=eq.${CLIENT_ID}&questionnaire_slug=eq.${SLUG}&select=responses`,
+      { headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` } }
+    );
+    const data = await res.json();
+    if (data.length > 0 && data[0].responses) {
+      responses = data[0].responses;
+      // Populate form fields
+      document.querySelectorAll('[data-key]').forEach(el => {
+        const val = responses[el.dataset.key];
+        if (val === undefined || val === null) return;
+        if (el.type === 'checkbox') {
+          el.checked = val === 'yes';
+        } else {
+          el.value = val;
+        }
+      });
+      updateProgress();
+    }
+  } catch (e) { console.error('Load error:', e); }
+}
+
+// Save responses to Supabase
+async function saveResponses() {
+  const banner = document.getElementById('saveBanner');
+  try {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/questionnaire_responses`,
+      {
+        method: 'POST',
+        headers: {
+          'apikey': SUPABASE_KEY,
+          'Authorization': `Bearer ${SUPABASE_KEY}`,
+          'Content-Type': 'application/json',
+          'Prefer': 'resolution=merge-duplicates'
+        },
+        body: JSON.stringify({
+          client_id: CLIENT_ID,
+          questionnaire_slug: SLUG,
+          responses: responses
+        })
+      }
+    );
+    if (res.ok || res.status === 201) {
+      banner.textContent = 'Saved';
+      banner.classList.add('visible');
+      setTimeout(() => banner.classList.remove('visible'), 1500);
+    }
+  } catch (e) {
+    banner.textContent = 'Save failed — will retry';
+    banner.style.background = '#dc2626';
+    banner.classList.add('visible');
+    setTimeout(() => { banner.classList.remove('visible'); banner.style.background = ''; }, 3000);
+  }
+}
+
+function scheduleSave() {
+  clearTimeout(saveTimeout);
+  saveTimeout = setTimeout(saveResponses, 400);
+}
+
+function updateProgress() {
+  const fields = document.querySelectorAll('[data-key]');
+  let total = 0, filled = 0;
+  const seen = new Set();
+  fields.forEach(el => {
+    const k = el.dataset.key;
+    if (seen.has(k)) return;
+    seen.add(k);
+    total++;
+    const val = responses[k];
+    if (val && val !== '') filled++;
+  });
+  const pct = total > 0 ? Math.round((filled / total) * 100) : 0;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').textContent = `${filled} / ${total} answered (${pct}%)`;
+}
+
+// Attach event listeners
+document.querySelectorAll('[data-key]').forEach(el => {
+  const eventType = el.type === 'checkbox' ? 'change' : 'input';
+  el.addEventListener(eventType, () => {
+    const val = el.type === 'checkbox' ? (el.checked ? 'yes' : '') : el.value;
+    responses[el.dataset.key] = val;
+    updateProgress();
+    scheduleSave();
+  });
+  // Also save on blur for good measure
+  if (el.type !== 'checkbox') {
+    el.addEventListener('blur', () => {
+      if (responses[el.dataset.key] !== undefined) scheduleSave();
+    });
+  }
+});
+
+// Init
+loadResponses();
+updateProgress();
+</script>
+</body>
+</html>
