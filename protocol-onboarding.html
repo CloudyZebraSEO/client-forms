@@ -60,7 +60,13 @@
 
   <div class="field">
     <label>The website email shows protocol_electrical@yahoo.com — should we update to protocolairpartners@gmail.com or a branded email?</label>
-    <input type="text" data-key="email_preference" placeholder="e.g., protocolairpartners@gmail.com or info@protocolsvc.com">
+    <select data-key="email_preference">
+      <option value="">-- Select --</option>
+      <option value="protocolairpartners@gmail.com">Yes, update to protocolairpartners@gmail.com</option>
+      <option value="branded">Yes, update to a branded email (e.g., info@protocolsvc.com)</option>
+      <option value="keep">Keep protocol_electrical@yahoo.com</option>
+      <option value="other">Other (I'll provide a different email)</option>
+    </select>
   </div>
   <div class="field">
     <label>Would you approve us making content and SEO changes to your existing pages?</label>
@@ -92,7 +98,15 @@
   </div>
   <div class="field">
     <label>Do you have any testimonials or case studies we can feature on the website?</label>
-    <textarea data-key="testimonials" placeholder="e.g., Yes we have written testimonials, or customer video reviews, etc."></textarea>
+    <select data-key="testimonials">
+      <option value="">-- Select --</option>
+      <option value="yes_written">Yes, we have written testimonials</option>
+      <option value="yes_video">Yes, we have video testimonials</option>
+      <option value="yes_both">Yes, both written and video</option>
+      <option value="yes_case_studies">Yes, we have case studies / project stories</option>
+      <option value="can_get">Not yet, but we can get some</option>
+      <option value="no">No</option>
+    </select>
   </div>
 </div>
 
