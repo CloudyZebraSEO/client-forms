@@ -31,13 +31,17 @@
   .checkbox-group label:hover { border-color: var(--primary); }
   .checkbox-group input:checked + span { color: var(--primary); font-weight: 600; }
   .checkbox-group label:has(input:checked) { border-color: var(--primary); background: rgba(26,86,219,0.05); }
-  .saved-indicator { display: inline-block; color: var(--success); font-size: 0.8rem; margin-left: 0.5rem; opacity: 0; transition: opacity 0.3s; }
-  .saved-indicator.show { opacity: 1; }
+  .license-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 0.5rem; }
+  .license-row .license-label { font-size: 0.9rem; font-weight: 500; grid-column: 1 / -1; }
+  .rank-list { list-style: none; padding: 0; }
+  .rank-list li { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem; padding: 0.4rem 0.6rem; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; }
+  .rank-list li .rank-num { width: 24px; height: 24px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; flex-shrink: 0; }
+  .rank-list select { flex: 1; }
   .progress { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid var(--border); padding: 0.6rem 1rem; display: flex; align-items: center; gap: 1rem; z-index: 100; }
   .progress-bar { flex: 1; height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
   .progress-fill { height: 100%; background: var(--primary); border-radius: 4px; transition: width 0.4s ease; }
   .progress-text { font-size: 0.85rem; color: var(--muted); white-space: nowrap; }
-  @media (max-width: 600px) { .header h1 { font-size: 1.3rem; } .section { padding: 1rem; } .checkbox-group { flex-direction: column; } }
+  @media (max-width: 600px) { .header h1 { font-size: 1.3rem; } .section { padding: 1rem; } .checkbox-group { flex-direction: column; } .license-row { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
@@ -50,77 +54,32 @@
 
 <div class="container">
 
-<!-- Section 1: Website & Content -->
+<!-- Quick Start Questions -->
 <div class="section">
-  <div class="section-title">Website & Content</div>
+  <div class="section-title">Quick Start</div>
 
   <div class="field">
-    <label>Are you happy with the current website design, or is a redesign on the table?</label>
-    <textarea data-key="website_happy"></textarea>
-  </div>
-  <div class="field">
-    <label>Who manages your current website? Do you have WordPress admin credentials?</label>
-    <textarea data-key="website_manager"></textarea>
-  </div>
-  <div class="field">
-    <label>What is your WordPress admin URL?</label>
-    <div class="hint">Usually protocolsvc.com/wp-admin</div>
-    <input type="url" data-key="wp_admin_url" placeholder="https://protocolsvc.com/wp-admin">
-  </div>
-  <div class="field">
-    <label>Do you have access to Google Search Console for protocolsvc.com?</label>
-    <select data-key="search_console_access">
-      <option value="">-- Select --</option>
-      <option value="yes">Yes</option>
-      <option value="no">No</option>
-      <option value="unsure">Not sure</option>
-    </select>
-  </div>
-  <div class="field">
-    <label>Do you have Google Analytics installed? If so, can you share access?</label>
-    <select data-key="analytics_access">
-      <option value="">-- Select --</option>
-      <option value="yes">Yes, can share access</option>
-      <option value="yes_no_share">Yes, but not sure how to share</option>
-      <option value="no">No</option>
-      <option value="unsure">Not sure</option>
-    </select>
-  </div>
-  <div class="field">
-    <label>The website email shows protocol_electrical@yahoo.com — should we update to a different email?</label>
-    <input type="text" data-key="email_preference" placeholder="e.g., protocolairpartners@gmail.com or a branded email">
+    <label>The website email shows protocol_electrical@yahoo.com — should we update to protocolairpartners@gmail.com or a branded email?</label>
+    <input type="text" data-key="email_preference" placeholder="e.g., protocolairpartners@gmail.com or info@protocolsvc.com">
   </div>
   <div class="field">
     <label>Would you approve us making content and SEO changes to your existing pages?</label>
     <select data-key="approve_changes">
       <option value="">-- Select --</option>
       <option value="yes">Yes, go ahead</option>
-      <option value="review_first">Yes, but I want to review first</option>
+      <option value="review_first">Yes, but I want to review changes first</option>
       <option value="discuss">Let's discuss first</option>
     </select>
   </div>
-  <div class="field">
-    <label>Do you have any brand voice preferences?</label>
-    <div class="hint">Professional, friendly, technical, casual, etc.</div>
-    <input type="text" data-key="brand_voice" placeholder="e.g., Professional but approachable">
-  </div>
-  <div class="field">
-    <label>Are there any claims on the website that are no longer accurate?</label>
-    <textarea data-key="inaccurate_claims" placeholder="e.g., outdated promotions, services no longer offered, etc."></textarea>
-  </div>
-  <div class="field">
-    <label>Is protocolelectric.net still a domain you own? What's its status?</label>
-    <input type="text" data-key="protocolelectric_net_status" placeholder="e.g., Still own it, redirects to main site">
-  </div>
 </div>
 
-<!-- Section 2: Reviews & Reputation -->
+<!-- Reviews & Reputation -->
 <div class="section">
   <div class="section-title">Reviews & Reputation</div>
 
   <div class="field">
     <label>Do you currently ask customers for Google reviews? What's your process?</label>
-    <textarea data-key="review_process" placeholder="e.g., We ask at the end of a job, or we don't currently ask"></textarea>
+    <textarea data-key="review_process" placeholder="e.g., We ask at the end of a job, send a follow-up text, or we don't currently ask"></textarea>
   </div>
   <div class="field">
     <label>Would you be open to implementing an automated review request system?</label>
@@ -133,51 +92,31 @@
   </div>
   <div class="field">
     <label>Do you have any testimonials or case studies we can feature on the website?</label>
-    <textarea data-key="testimonials"></textarea>
-  </div>
-  <div class="field">
-    <label>Have you received any negative reviews? How were they handled?</label>
-    <textarea data-key="negative_reviews"></textarea>
-  </div>
-  <div class="field">
-    <label>Are you listed on any directories?</label>
-    <div class="hint">Yelp, BBB, HomeAdvisor, Angie's List, Thumbtack, etc.</div>
-    <textarea data-key="directory_listings" placeholder="List any directories you know you're on"></textarea>
-  </div>
-  <div class="field">
-    <label>Do you have social media accounts beyond Facebook?</label>
-    <input type="text" data-key="social_media" placeholder="e.g., Instagram, YouTube, Nextdoor">
+    <textarea data-key="testimonials" placeholder="e.g., Yes we have written testimonials, or customer video reviews, etc."></textarea>
   </div>
 </div>
 
-<!-- Section 3: Licensing & Legal -->
+<!-- Licensing & Legal -->
 <div class="section">
   <div class="section-title">Licensing & Legal</div>
 
   <div class="field">
-    <label>What is the exact legal business name?</label>
-    <div class="hint">Protocol Services LLC? Protocol Electric & Air LLC?</div>
-    <input type="text" data-key="legal_name" placeholder="Exact name as registered">
-  </div>
-  <div class="field">
-    <label>What name do you want to rank for on Google?</label>
-    <input type="text" data-key="ranking_name" placeholder="e.g., Protocol Electric & Air">
-  </div>
-  <div class="field">
-    <label>Do you have a registered DBA? If so, what is it?</label>
-    <input type="text" data-key="dba">
-  </div>
-  <div class="field">
-    <label>NJ Electrical License Number</label>
-    <input type="text" data-key="license_electrical" placeholder="License #">
-  </div>
-  <div class="field">
-    <label>NJ HVAC License Number</label>
-    <input type="text" data-key="license_hvac" placeholder="License #">
-  </div>
-  <div class="field">
-    <label>NJ Plumbing License Number (if applicable)</label>
-    <input type="text" data-key="license_plumbing" placeholder="License # or N/A">
+    <label>What is your NJ contractor license number(s) and from what municipality?</label>
+    <div class="license-row">
+      <div class="license-label">Electrical License</div>
+      <input type="text" data-key="license_electrical_num" placeholder="License #">
+      <input type="text" data-key="license_electrical_from" placeholder="Issued from (municipality)">
+    </div>
+    <div class="license-row">
+      <div class="license-label">HVAC License</div>
+      <input type="text" data-key="license_hvac_num" placeholder="License #">
+      <input type="text" data-key="license_hvac_from" placeholder="Issued from (municipality)">
+    </div>
+    <div class="license-row">
+      <div class="license-label">Plumbing License (if applicable)</div>
+      <input type="text" data-key="license_plumbing_num" placeholder="License # or N/A">
+      <input type="text" data-key="license_plumbing_from" placeholder="Issued from (municipality)">
+    </div>
   </div>
   <div class="field">
     <label>Are you licensed in PA as well? If so, what license numbers?</label>
@@ -202,11 +141,11 @@
   <div class="field">
     <label>Who are the business partners/owners?</label>
     <div class="hint">We know Chad Harrison — anyone else?</div>
-    <textarea data-key="owners" placeholder="Name(s) and roles"></textarea>
+    <textarea data-key="owners" placeholder="Name(s) and their roles"></textarea>
   </div>
 </div>
 
-<!-- Section 4: Location & Service Area -->
+<!-- Location & Service Area -->
 <div class="section">
   <div class="section-title">Location & Service Area</div>
 
@@ -221,19 +160,11 @@
     </select>
   </div>
   <div class="field">
-    <label>If your location is different, what is the correct address?</label>
-    <input type="text" data-key="correct_address" placeholder="Leave blank if 350 US-46 is correct">
-  </div>
-  <div class="field">
     <label>Do you have any other physical locations, warehouses, or satellite offices?</label>
-    <textarea data-key="other_locations"></textarea>
+    <textarea data-key="other_locations" placeholder="List any additional locations"></textarea>
   </div>
   <div class="field">
-    <label>Is Stewartsville, NJ 08886 still a valid address? (Shows on website contact page)</label>
-    <input type="text" data-key="stewartsville_status" placeholder="e.g., Old address, no longer valid">
-  </div>
-  <div class="field">
-    <label>What specific towns/areas do you serve most frequently? (Top 10)</label>
+    <label>What specific towns/areas do you currently serve most frequently? (Top 10)</label>
     <textarea data-key="top_towns" placeholder="e.g., Rockaway, Denville, Dover, Randolph, Parsippany..."></textarea>
   </div>
   <div class="field">
@@ -242,7 +173,7 @@
   </div>
   <div class="field">
     <label>Are there any areas you specifically do NOT want to serve?</label>
-    <input type="text" data-key="excluded_areas">
+    <input type="text" data-key="excluded_areas" placeholder="e.g., Newark, certain counties, etc.">
   </div>
   <div class="field">
     <label>Do you serve both NJ and PA? If PA, which counties/areas?</label>
@@ -250,17 +181,120 @@
   </div>
 </div>
 
-<!-- Section 5: Services -->
+<!-- Services -->
 <div class="section">
   <div class="section-title">Services</div>
 
   <div class="field">
-    <label>Which services generate the most revenue? (Rank your top 5)</label>
-    <textarea data-key="top_revenue_services" placeholder="1. &#10;2. &#10;3. &#10;4. &#10;5. "></textarea>
+    <label>Are there additional electrician services you provide or want to provide?</label>
+    <div class="hint">These are services that similar companies offer but are not currently shown on your website. Check any that you offer or want to add.</div>
+    <div class="checkbox-group">
+      <label><input type="checkbox" data-key="add_svc_generator" value="yes"><span>Generator Installation & Service</span></label>
+      <label><input type="checkbox" data-key="add_svc_smart_home" value="yes"><span>Smart Home Automation</span></label>
+      <label><input type="checkbox" data-key="add_svc_kitchen_bath" value="yes"><span>Kitchen & Bathroom Electrical</span></label>
+      <label><input type="checkbox" data-key="add_svc_ceiling_fan" value="yes"><span>Ceiling & Attic Fan Installation</span></label>
+      <label><input type="checkbox" data-key="add_svc_hot_tub" value="yes"><span>Hot Tub & Pool Electrical</span></label>
+      <label><input type="checkbox" data-key="add_svc_rewiring" value="yes"><span>Whole-House Rewiring</span></label>
+      <label><input type="checkbox" data-key="add_svc_knob_tube" value="yes"><span>Knob & Tube Replacement</span></label>
+      <label><input type="checkbox" data-key="add_svc_new_construction" value="yes"><span>New Construction Electrical</span></label>
+      <label><input type="checkbox" data-key="add_svc_renovation" value="yes"><span>Home Renovation Electrical</span></label>
+      <label><input type="checkbox" data-key="add_svc_commercial" value="yes"><span>Commercial Electrical</span></label>
+      <label><input type="checkbox" data-key="add_svc_commercial_lighting" value="yes"><span>Commercial Lighting Services</span></label>
+      <label><input type="checkbox" data-key="add_svc_tenant_improve" value="yes"><span>Building Upgrades & Tenant Improvements</span></label>
+      <label><input type="checkbox" data-key="add_svc_electrical_repairs" value="yes"><span>General Electrical Repairs (standalone service)</span></label>
+    </div>
   </div>
   <div class="field">
+    <label>Other services not listed above that you offer or want to add?</label>
+    <input type="text" data-key="add_svc_other" placeholder="e.g., Solar panel wiring, data/network cabling, etc.">
+  </div>
+
+  <div class="field">
+    <label>Which services generate the most revenue? (Rank your top 5)</label>
+    <div class="hint">Select from your current services — leave blank any you don't want to rank.</div>
+    <ul class="rank-list">
+      <li><span class="rank-num">1</span>
+        <select data-key="revenue_rank_1">
+          <option value="">-- Select top revenue service --</option>
+          <optgroup label="Electrical">
+            <option value="panel_upgrades">Electrical Panel Upgrades</option>
+            <option value="circuit_breaker">Circuit Breaker Installation & Repair</option>
+            <option value="emergency_electrical">Emergency Electrical Services (24/7)</option>
+            <option value="outlets_childproof">Childproof/Tamper-Resistant Outlets</option>
+            <option value="surge_protection">Whole-House Surge Protection</option>
+            <option value="lighting">Lighting Installation & LED Conversions</option>
+            <option value="ev_charger">EV Charging Station Installation</option>
+            <option value="service_change">Service Change/Upgrade</option>
+            <option value="dimmers_switches">Dimmers, Switches & Outlets</option>
+            <option value="home_entertainment">Home Entertainment System Installation</option>
+            <option value="security_outdoor_lighting">Security & Outdoor Lighting</option>
+            <option value="home_wiring">Home Wiring</option>
+            <option value="safety_inspections">Electrical Safety Inspections</option>
+            <option value="smoke_co">Smoke/CO Detector Installation</option>
+            <option value="circuit_overload">Circuit Overload & Power Outage Solutions</option>
+            <option value="appliance_install">New Appliance Installation</option>
+          </optgroup>
+          <optgroup label="Heating">
+            <option value="heating_repair">Heating Repair (Furnace, Boiler, Heat Pump)</option>
+            <option value="heating_install">Heating Installation (Furnace, Boiler, Heat Pump)</option>
+            <option value="oil_to_gas">Oil to Gas Conversions</option>
+            <option value="heating_maintenance">Heating Tune-Ups & Maintenance</option>
+          </optgroup>
+          <optgroup label="Cooling">
+            <option value="ac_repair">AC Repair</option>
+            <option value="ac_install">AC Installation</option>
+            <option value="ac_maintenance">AC Maintenance & Tune-Ups</option>
+            <option value="ductless_minisplit">Ductless AC / Mini-Split Systems</option>
+          </optgroup>
+          <optgroup label="Air Quality">
+            <option value="indoor_air_quality">Indoor Air Quality Systems</option>
+            <option value="uv_lamps">UV Lamps</option>
+            <option value="air_filtration">Air Filtration Systems</option>
+            <option value="humidifiers">Humidifiers</option>
+            <option value="dehumidifiers">Dehumidifiers</option>
+            <option value="air_scrubbers">Air Scrubbers</option>
+            <option value="water_filtration">Water Filtration/Conditioning</option>
+          </optgroup>
+        </select>
+      </li>
+      <li><span class="rank-num">2</span>
+        <select data-key="revenue_rank_2"><option value="">-- Select #2 --</option>
+          <optgroup label="Electrical"><option value="panel_upgrades">Electrical Panel Upgrades</option><option value="circuit_breaker">Circuit Breaker Installation & Repair</option><option value="emergency_electrical">Emergency Electrical Services (24/7)</option><option value="outlets_childproof">Childproof/Tamper-Resistant Outlets</option><option value="surge_protection">Whole-House Surge Protection</option><option value="lighting">Lighting Installation & LED Conversions</option><option value="ev_charger">EV Charging Station Installation</option><option value="service_change">Service Change/Upgrade</option><option value="dimmers_switches">Dimmers, Switches & Outlets</option><option value="home_entertainment">Home Entertainment System Installation</option><option value="security_outdoor_lighting">Security & Outdoor Lighting</option><option value="home_wiring">Home Wiring</option><option value="safety_inspections">Electrical Safety Inspections</option><option value="smoke_co">Smoke/CO Detector Installation</option><option value="circuit_overload">Circuit Overload & Power Outage Solutions</option><option value="appliance_install">New Appliance Installation</option></optgroup>
+          <optgroup label="Heating"><option value="heating_repair">Heating Repair</option><option value="heating_install">Heating Installation</option><option value="oil_to_gas">Oil to Gas Conversions</option><option value="heating_maintenance">Heating Tune-Ups & Maintenance</option></optgroup>
+          <optgroup label="Cooling"><option value="ac_repair">AC Repair</option><option value="ac_install">AC Installation</option><option value="ac_maintenance">AC Maintenance & Tune-Ups</option><option value="ductless_minisplit">Ductless AC / Mini-Split Systems</option></optgroup>
+          <optgroup label="Air Quality"><option value="indoor_air_quality">Indoor Air Quality Systems</option><option value="uv_lamps">UV Lamps</option><option value="air_filtration">Air Filtration Systems</option><option value="humidifiers">Humidifiers</option><option value="dehumidifiers">Dehumidifiers</option><option value="air_scrubbers">Air Scrubbers</option><option value="water_filtration">Water Filtration/Conditioning</option></optgroup>
+        </select>
+      </li>
+      <li><span class="rank-num">3</span>
+        <select data-key="revenue_rank_3"><option value="">-- Select #3 --</option>
+          <optgroup label="Electrical"><option value="panel_upgrades">Electrical Panel Upgrades</option><option value="circuit_breaker">Circuit Breaker Installation & Repair</option><option value="emergency_electrical">Emergency Electrical Services (24/7)</option><option value="outlets_childproof">Childproof/Tamper-Resistant Outlets</option><option value="surge_protection">Whole-House Surge Protection</option><option value="lighting">Lighting Installation & LED Conversions</option><option value="ev_charger">EV Charging Station Installation</option><option value="service_change">Service Change/Upgrade</option><option value="dimmers_switches">Dimmers, Switches & Outlets</option><option value="home_entertainment">Home Entertainment System Installation</option><option value="security_outdoor_lighting">Security & Outdoor Lighting</option><option value="home_wiring">Home Wiring</option><option value="safety_inspections">Electrical Safety Inspections</option><option value="smoke_co">Smoke/CO Detector Installation</option><option value="circuit_overload">Circuit Overload & Power Outage Solutions</option><option value="appliance_install">New Appliance Installation</option></optgroup>
+          <optgroup label="Heating"><option value="heating_repair">Heating Repair</option><option value="heating_install">Heating Installation</option><option value="oil_to_gas">Oil to Gas Conversions</option><option value="heating_maintenance">Heating Tune-Ups & Maintenance</option></optgroup>
+          <optgroup label="Cooling"><option value="ac_repair">AC Repair</option><option value="ac_install">AC Installation</option><option value="ac_maintenance">AC Maintenance & Tune-Ups</option><option value="ductless_minisplit">Ductless AC / Mini-Split Systems</option></optgroup>
+          <optgroup label="Air Quality"><option value="indoor_air_quality">Indoor Air Quality Systems</option><option value="uv_lamps">UV Lamps</option><option value="air_filtration">Air Filtration Systems</option><option value="humidifiers">Humidifiers</option><option value="dehumidifiers">Dehumidifiers</option><option value="air_scrubbers">Air Scrubbers</option><option value="water_filtration">Water Filtration/Conditioning</option></optgroup>
+        </select>
+      </li>
+      <li><span class="rank-num">4</span>
+        <select data-key="revenue_rank_4"><option value="">-- Select #4 --</option>
+          <optgroup label="Electrical"><option value="panel_upgrades">Electrical Panel Upgrades</option><option value="circuit_breaker">Circuit Breaker Installation & Repair</option><option value="emergency_electrical">Emergency Electrical Services (24/7)</option><option value="outlets_childproof">Childproof/Tamper-Resistant Outlets</option><option value="surge_protection">Whole-House Surge Protection</option><option value="lighting">Lighting Installation & LED Conversions</option><option value="ev_charger">EV Charging Station Installation</option><option value="service_change">Service Change/Upgrade</option><option value="dimmers_switches">Dimmers, Switches & Outlets</option><option value="home_entertainment">Home Entertainment System Installation</option><option value="security_outdoor_lighting">Security & Outdoor Lighting</option><option value="home_wiring">Home Wiring</option><option value="safety_inspections">Electrical Safety Inspections</option><option value="smoke_co">Smoke/CO Detector Installation</option><option value="circuit_overload">Circuit Overload & Power Outage Solutions</option><option value="appliance_install">New Appliance Installation</option></optgroup>
+          <optgroup label="Heating"><option value="heating_repair">Heating Repair</option><option value="heating_install">Heating Installation</option><option value="oil_to_gas">Oil to Gas Conversions</option><option value="heating_maintenance">Heating Tune-Ups & Maintenance</option></optgroup>
+          <optgroup label="Cooling"><option value="ac_repair">AC Repair</option><option value="ac_install">AC Installation</option><option value="ac_maintenance">AC Maintenance & Tune-Ups</option><option value="ductless_minisplit">Ductless AC / Mini-Split Systems</option></optgroup>
+          <optgroup label="Air Quality"><option value="indoor_air_quality">Indoor Air Quality Systems</option><option value="uv_lamps">UV Lamps</option><option value="air_filtration">Air Filtration Systems</option><option value="humidifiers">Humidifiers</option><option value="dehumidifiers">Dehumidifiers</option><option value="air_scrubbers">Air Scrubbers</option><option value="water_filtration">Water Filtration/Conditioning</option></optgroup>
+        </select>
+      </li>
+      <li><span class="rank-num">5</span>
+        <select data-key="revenue_rank_5"><option value="">-- Select #5 --</option>
+          <optgroup label="Electrical"><option value="panel_upgrades">Electrical Panel Upgrades</option><option value="circuit_breaker">Circuit Breaker Installation & Repair</option><option value="emergency_electrical">Emergency Electrical Services (24/7)</option><option value="outlets_childproof">Childproof/Tamper-Resistant Outlets</option><option value="surge_protection">Whole-House Surge Protection</option><option value="lighting">Lighting Installation & LED Conversions</option><option value="ev_charger">EV Charging Station Installation</option><option value="service_change">Service Change/Upgrade</option><option value="dimmers_switches">Dimmers, Switches & Outlets</option><option value="home_entertainment">Home Entertainment System Installation</option><option value="security_outdoor_lighting">Security & Outdoor Lighting</option><option value="home_wiring">Home Wiring</option><option value="safety_inspections">Electrical Safety Inspections</option><option value="smoke_co">Smoke/CO Detector Installation</option><option value="circuit_overload">Circuit Overload & Power Outage Solutions</option><option value="appliance_install">New Appliance Installation</option></optgroup>
+          <optgroup label="Heating"><option value="heating_repair">Heating Repair</option><option value="heating_install">Heating Installation</option><option value="oil_to_gas">Oil to Gas Conversions</option><option value="heating_maintenance">Heating Tune-Ups & Maintenance</option></optgroup>
+          <optgroup label="Cooling"><option value="ac_repair">AC Repair</option><option value="ac_install">AC Installation</option><option value="ac_maintenance">AC Maintenance & Tune-Ups</option><option value="ductless_minisplit">Ductless AC / Mini-Split Systems</option></optgroup>
+          <optgroup label="Air Quality"><option value="indoor_air_quality">Indoor Air Quality Systems</option><option value="uv_lamps">UV Lamps</option><option value="air_filtration">Air Filtration Systems</option><option value="humidifiers">Humidifiers</option><option value="dehumidifiers">Dehumidifiers</option><option value="air_scrubbers">Air Scrubbers</option><option value="water_filtration">Water Filtration/Conditioning</option></optgroup>
+        </select>
+      </li>
+    </ul>
+  </div>
+
+  <div class="field">
     <label>Which services do you WANT to grow the most?</label>
-    <textarea data-key="growth_services"></textarea>
+    <textarea data-key="growth_services" placeholder="e.g., EV charger installations, heat pump installs, oil-to-gas conversions"></textarea>
   </div>
   <div class="field">
     <label>Do you offer plumbing services?</label>
@@ -271,15 +305,6 @@
       <option value="limited">Limited plumbing (water heaters only, etc.)</option>
       <option value="no">No, we don't do plumbing</option>
       <option value="planned">Not yet, but planning to add it</option>
-    </select>
-  </div>
-  <div class="field">
-    <label>Do you offer generator installation/service?</label>
-    <select data-key="generators">
-      <option value="">-- Select --</option>
-      <option value="yes">Yes</option>
-      <option value="no">No</option>
-      <option value="planned">Planning to add</option>
     </select>
   </div>
   <div class="field">
@@ -304,33 +329,6 @@
     </select>
   </div>
   <div class="field">
-    <label>Do you offer smart home/home automation services?</label>
-    <select data-key="smart_home">
-      <option value="">-- Select --</option>
-      <option value="yes">Yes</option>
-      <option value="limited">Some (smart thermostats, etc.)</option>
-      <option value="no">No</option>
-    </select>
-  </div>
-
-  <div class="field">
-    <label>Which additional electrical services do you offer? (Check all that apply)</label>
-    <div class="checkbox-group">
-      <label><input type="checkbox" data-key="svc_ev_charger" value="yes"><span>EV Charger Installation</span></label>
-      <label><input type="checkbox" data-key="svc_panel_upgrade" value="yes"><span>Panel Upgrades</span></label>
-      <label><input type="checkbox" data-key="svc_whole_house_rewiring" value="yes"><span>Whole-House Rewiring</span></label>
-      <label><input type="checkbox" data-key="svc_recessed_lighting" value="yes"><span>Recessed Lighting</span></label>
-      <label><input type="checkbox" data-key="svc_ceiling_fans" value="yes"><span>Ceiling Fan Installation</span></label>
-      <label><input type="checkbox" data-key="svc_smoke_co" value="yes"><span>Smoke/CO Detectors</span></label>
-      <label><input type="checkbox" data-key="svc_surge_protection" value="yes"><span>Whole-House Surge Protection</span></label>
-      <label><input type="checkbox" data-key="svc_landscape_lighting" value="yes"><span>Landscape/Outdoor Lighting</span></label>
-      <label><input type="checkbox" data-key="svc_knob_tube" value="yes"><span>Knob & Tube Replacement</span></label>
-      <label><input type="checkbox" data-key="svc_hot_tub_wiring" value="yes"><span>Hot Tub/Pool Wiring</span></label>
-      <label><input type="checkbox" data-key="svc_security_systems" value="yes"><span>Security System Wiring</span></label>
-    </div>
-  </div>
-
-  <div class="field">
     <label>What HVAC brands do you install? (Check all that apply)</label>
     <div class="checkbox-group">
       <label><input type="checkbox" data-key="brand_carrier" value="yes"><span>Carrier</span></label>
@@ -343,16 +341,15 @@
       <label><input type="checkbox" data-key="brand_bosch" value="yes"><span>Bosch</span></label>
       <label><input type="checkbox" data-key="brand_york" value="yes"><span>York</span></label>
       <label><input type="checkbox" data-key="brand_amana" value="yes"><span>Amana</span></label>
-      <label><input type="checkbox" data-key="brand_generac" value="yes"><span>Generac (Generators)</span></label>
+      <label><input type="checkbox" data-key="brand_american_standard" value="yes"><span>American Standard</span></label>
+      <label><input type="checkbox" data-key="brand_ruud" value="yes"><span>Ruud</span></label>
+    </div>
+    <div style="margin-top: 0.5rem;">
+      <input type="text" data-key="brand_hvac_other" placeholder="Other HVAC brands not listed above">
     </div>
   </div>
   <div class="field">
-    <label>Other brands not listed above?</label>
-    <input type="text" data-key="other_brands" placeholder="e.g., American Standard, Ruud, etc.">
-  </div>
-
-  <div class="field">
-    <label>What EV charger brands do you install?</label>
+    <label>What electrical brands/products do you prefer? (EV chargers, generators, etc.)</label>
     <div class="checkbox-group">
       <label><input type="checkbox" data-key="ev_chargepoint" value="yes"><span>ChargePoint</span></label>
       <label><input type="checkbox" data-key="ev_tesla" value="yes"><span>Tesla Wall Connector</span></label>
@@ -360,234 +357,70 @@
       <label><input type="checkbox" data-key="ev_grizzle" value="yes"><span>Grizzl-E</span></label>
       <label><input type="checkbox" data-key="ev_wallbox" value="yes"><span>Wallbox</span></label>
       <label><input type="checkbox" data-key="ev_clipper_creek" value="yes"><span>ClipperCreek</span></label>
+      <label><input type="checkbox" data-key="gen_generac" value="yes"><span>Generac (Generators)</span></label>
+      <label><input type="checkbox" data-key="gen_kohler" value="yes"><span>Kohler (Generators)</span></label>
+      <label><input type="checkbox" data-key="gen_briggs" value="yes"><span>Briggs & Stratton (Generators)</span></label>
+    </div>
+    <div style="margin-top: 0.5rem;">
+      <input type="text" data-key="brand_electrical_other" placeholder="Other electrical brands not listed above">
     </div>
   </div>
-
   <div class="field">
     <label>Are you a dealer or preferred installer for any manufacturer?</label>
     <textarea data-key="dealer_status" placeholder="e.g., Carrier Factory Authorized Dealer, Generac dealer, etc."></textarea>
   </div>
-  <div class="field">
-    <label>What are your typical project price ranges?</label>
-    <div style="display: grid; gap: 0.5rem;">
-      <div><label style="font-weight:400; font-size:0.9rem;">Average residential electrical job: </label><input type="text" data-key="price_electrical" placeholder="$" style="width: 150px; display: inline-block;"></div>
-      <div><label style="font-weight:400; font-size:0.9rem;">Average HVAC installation: </label><input type="text" data-key="price_hvac" placeholder="$" style="width: 150px; display: inline-block;"></div>
-      <div><label style="font-weight:400; font-size:0.9rem;">Average service call: </label><input type="text" data-key="price_service_call" placeholder="$" style="width: 150px; display: inline-block;"></div>
-    </div>
-  </div>
 </div>
 
-<!-- Section 6: Google Business Profiles -->
-<div class="section">
-  <div class="section-title">Google Business Profiles</div>
-
-  <div class="field">
-    <label>We found 3 Google Business Profiles linked to your phone number:</label>
-    <div class="hint" style="margin-bottom: 0.75rem;">
-      1. "Protocol Services" (6 reviews)<br>
-      2. "Protocol Services LLC" (2 reviews)<br>
-      3. "Protocol Electric and Security" (42 reviews)
-    </div>
-    <label>Which profiles do you have login access to?</label>
-    <textarea data-key="gbp_access" placeholder="e.g., I can log into #1 and #2 but not #3"></textarea>
-  </div>
-  <div class="field">
-    <label>Do you know who manages the "Protocol Electric and Security" profile? Can we get access?</label>
-    <textarea data-key="gbp_legacy_access"></textarea>
-  </div>
-  <div class="field">
-    <label>The primary profile is categorized as "Marketing consultant" — did you set that intentionally?</label>
-    <select data-key="gbp_category_intentional">
-      <option value="">-- Select --</option>
-      <option value="no_mistake">No, that's a mistake</option>
-      <option value="yes">Yes, intentionally</option>
-      <option value="dont_know">I didn't know about that</option>
-    </select>
-  </div>
-  <div class="field">
-    <label>Are you currently running any Google Ads?</label>
-    <select data-key="google_ads">
-      <option value="">-- Select --</option>
-      <option value="yes">Yes</option>
-      <option value="no">No</option>
-      <option value="past">Not now, but have in the past</option>
-    </select>
-  </div>
-</div>
-
-<!-- Section 7: Team & Credentials -->
+<!-- Team & Credentials -->
 <div class="section">
   <div class="section-title">Team & Credentials</div>
 
-  <div class="field">
-    <label>How many employees/technicians do you have?</label>
-    <input type="text" data-key="employee_count" placeholder="e.g., 8 techs + 2 office staff">
-  </div>
-  <div class="field">
-    <label>Can you provide names, titles, and brief bios for key team members?</label>
-    <textarea data-key="team_bios" placeholder="Name — Title — Brief bio&#10;e.g., Chad Harrison — Co-Owner — 14 years experience..."></textarea>
-  </div>
-  <div class="field">
-    <label>Do you have professional headshot photos of team members?</label>
-    <select data-key="team_photos">
-      <option value="">-- Select --</option>
-      <option value="yes">Yes</option>
-      <option value="some">Some team members</option>
-      <option value="no">No, but can get them</option>
-      <option value="no_cant">No</option>
-    </select>
-  </div>
   <div class="field">
     <label>What certifications do your technicians hold?</label>
     <div class="hint">NATE, EPA 608, NEC training, manufacturer certifications, etc.</div>
     <textarea data-key="certifications" placeholder="List all certifications held by your team"></textarea>
   </div>
   <div class="field">
-    <label>Are you a member of any trade associations?</label>
-    <div class="hint">NECA, IEC, ACCA, Nexstar, PHCC, BBB, local chamber, etc.</div>
-    <textarea data-key="associations" placeholder="List memberships"></textarea>
+    <label>Are you or anyone on your team a member of any trade associations or unions?</label>
+    <div class="hint">NECA, IEC, ACCA, Nexstar, PHCC, IBEW, etc. Are you a member of a Chamber of Commerce?</div>
+    <textarea data-key="associations" placeholder="List all memberships including union affiliations and Chamber of Commerce"></textarea>
+  </div>
+  <div class="field">
+    <label>How many employees/technicians do you have?</label>
+    <input type="text" data-key="employee_count" placeholder="e.g., 8 techs + 2 office staff">
   </div>
   <div class="field">
     <label>Have you won any awards or received any recognition?</label>
-    <textarea data-key="awards"></textarea>
+    <textarea data-key="awards" placeholder="e.g., Best of Morris County, Angi Super Service Award, etc."></textarea>
+  </div>
+  <div class="field">
+    <label>Do you have insurance certificates you can share?</label>
+    <div class="hint">For trust signals on the website — general liability, workers comp, etc.</div>
+    <select data-key="insurance_certs">
+      <option value="">-- Select --</option>
+      <option value="yes">Yes, can share</option>
+      <option value="yes_not_sure">Yes, but not sure how</option>
+      <option value="no">No</option>
+    </select>
   </div>
   <div class="field">
     <label>Are you BBB accredited? What's your rating?</label>
     <input type="text" data-key="bbb_status" placeholder="e.g., Yes, A+ rating">
   </div>
-</div>
-
-<!-- Section 8: Marketing & Competition -->
-<div class="section">
-  <div class="section-title">Marketing & Competition</div>
-
   <div class="field">
-    <label>Are you currently doing any marketing?</label>
-    <div class="hint">Paid ads, direct mail, door hangers, etc.</div>
-    <textarea data-key="current_marketing"></textarea>
+    <label>Can you provide names, titles, and brief bios for key team members?</label>
+    <textarea data-key="team_bios" placeholder="Name — Title — Brief bio&#10;e.g., Chad Harrison — Co-Owner — 14 years experience in electrical and HVAC..."></textarea>
   </div>
   <div class="field">
-    <label>How do most of your current customers find you?</label>
-    <textarea data-key="customer_source" placeholder="e.g., Word of mouth, Google, referrals"></textarea>
-  </div>
-  <div class="field">
-    <label>What is your current monthly marketing budget?</label>
-    <input type="text" data-key="marketing_budget" placeholder="$">
-  </div>
-  <div class="field">
-    <label>Who do you consider your top 3 competitors in electrical?</label>
-    <textarea data-key="competitors_electrical"></textarea>
-  </div>
-  <div class="field">
-    <label>Who do you consider your top 3 competitors in HVAC?</label>
-    <textarea data-key="competitors_hvac"></textarea>
-  </div>
-  <div class="field">
-    <label>What do you think you do better than your competitors?</label>
-    <textarea data-key="competitive_advantage"></textarea>
-  </div>
-  <div class="field">
-    <label>What are your typical response times?</label>
-    <select data-key="response_time">
-      <option value="">-- Select --</option>
-      <option value="same_day">Same day</option>
-      <option value="24hrs">Within 24 hours</option>
-      <option value="48hrs">Within 48 hours</option>
-      <option value="varies">Varies by season</option>
-    </select>
-  </div>
-  <div class="field">
-    <label>Do you offer any warranties or guarantees beyond manufacturer warranty?</label>
-    <textarea data-key="warranties" placeholder="e.g., 1-year labor warranty, satisfaction guarantee"></textarea>
-  </div>
-  <div class="field">
-    <label>What financing options are currently active?</label>
-    <div class="hint">Site mentions PSE&G, JCP&L, Wells Fargo</div>
-    <textarea data-key="financing" placeholder="List active financing programs"></textarea>
-  </div>
-</div>
-
-<!-- Section 9: Goals & Priorities -->
-<div class="section">
-  <div class="section-title">Goals & Priorities</div>
-
-  <div class="field">
-    <label>What is your #1 business goal for the next 12 months?</label>
-    <textarea data-key="top_goal"></textarea>
-  </div>
-  <div class="field">
-    <label>Are you looking to hire more technicians?</label>
-    <div class="hint">Important to know if you have capacity to handle more leads</div>
-    <select data-key="hiring">
-      <option value="">-- Select --</option>
-      <option value="yes_actively">Yes, actively hiring</option>
-      <option value="yes_open">Open to it if leads increase</option>
-      <option value="no_full">No, we're at capacity</option>
-      <option value="no_growing">No, but growing the team is planned</option>
-    </select>
-  </div>
-  <div class="field">
-    <label>Is there seasonality to your business? Which months are busiest?</label>
-    <input type="text" data-key="seasonality" placeholder="e.g., Summer busiest for AC, winter for heating">
-  </div>
-  <div class="field">
-    <label>What would "success" look like from SEO in 6 months? 12 months?</label>
-    <textarea data-key="seo_success" placeholder="e.g., 50 leads/month, page 1 for 'electrician Rockaway NJ'"></textarea>
-  </div>
-  <div class="field">
-    <label>Are there specific services you want to push hardest?</label>
-    <textarea data-key="priority_services"></textarea>
-  </div>
-  <div class="field">
-    <label>Do you have a preferred geographic area for growth?</label>
-    <input type="text" data-key="growth_area" placeholder="e.g., Parsippany, Morristown area">
-  </div>
-  <div class="field">
-    <label>What's your current lead volume? How many calls/inquiries per week?</label>
-    <input type="text" data-key="lead_volume" placeholder="e.g., ~20 calls/week">
-  </div>
-  <div class="field">
-    <label>What is your close rate on estimates?</label>
-    <input type="text" data-key="close_rate" placeholder="e.g., About 60%">
-  </div>
-</div>
-
-<!-- Section 10: Photos & Media -->
-<div class="section">
-  <div class="section-title">Photos & Media</div>
-
-  <div class="field">
-    <label>Do you have photos of the following? (Check all that apply)</label>
+    <label>Do you have photos of:</label>
     <div class="checkbox-group">
-      <label><input type="checkbox" data-key="photo_team" value="yes"><span>Team / Technicians</span></label>
-      <label><input type="checkbox" data-key="photo_vehicles" value="yes"><span>Company Vehicles</span></label>
-      <label><input type="checkbox" data-key="photo_office" value="yes"><span>Office / Facility</span></label>
-      <label><input type="checkbox" data-key="photo_projects" value="yes"><span>Completed Projects (Before/After)</span></label>
-      <label><input type="checkbox" data-key="photo_equipment" value="yes"><span>Equipment Installations</span></label>
+      <label><input type="checkbox" data-key="photo_team" value="yes"><span>Your team / technicians (group photos)</span></label>
+      <label><input type="checkbox" data-key="photo_headshots" value="yes"><span>Individual headshot photos of team members</span></label>
+      <label><input type="checkbox" data-key="photo_vehicles" value="yes"><span>Company vehicles (wrapped with branding)</span></label>
+      <label><input type="checkbox" data-key="photo_office" value="yes"><span>Your office / facility</span></label>
+      <label><input type="checkbox" data-key="photo_projects" value="yes"><span>Completed projects (before/after)</span></label>
+      <label><input type="checkbox" data-key="photo_equipment" value="yes"><span>Equipment installations</span></label>
     </div>
-  </div>
-  <div class="field">
-    <label>Do you have any video content?</label>
-    <select data-key="video_content">
-      <option value="">-- Select --</option>
-      <option value="yes">Yes</option>
-      <option value="no">No</option>
-      <option value="planned">No, but interested in creating some</option>
-    </select>
-  </div>
-  <div class="field">
-    <label>Do you have a high-resolution version of your logo?</label>
-    <select data-key="logo_hires">
-      <option value="">-- Select --</option>
-      <option value="yes">Yes</option>
-      <option value="no">No</option>
-      <option value="unsure">Not sure</option>
-    </select>
-  </div>
-  <div class="field">
-    <label>What are your official brand colors?</label>
-    <div class="hint">Hex codes or a brand guide if you have one</div>
-    <input type="text" data-key="brand_colors" placeholder="e.g., Navy blue #1e3a5f and orange #f97316">
   </div>
 </div>
 
@@ -607,7 +440,6 @@ const SLUG = 'protocol-onboarding';
 let responses = {};
 let saveTimeout = null;
 
-// Load existing responses
 async function loadResponses() {
   try {
     const res = await fetch(
@@ -617,7 +449,6 @@ async function loadResponses() {
     const data = await res.json();
     if (data.length > 0 && data[0].responses) {
       responses = data[0].responses;
-      // Populate form fields
       document.querySelectorAll('[data-key]').forEach(el => {
         const val = responses[el.dataset.key];
         if (val === undefined || val === null) return;
@@ -632,7 +463,6 @@ async function loadResponses() {
   } catch (e) { console.error('Load error:', e); }
 }
 
-// Save responses to Supabase
 async function saveResponses() {
   const banner = document.getElementById('saveBanner');
   try {
@@ -688,7 +518,6 @@ function updateProgress() {
   document.getElementById('progressText').textContent = `${filled} / ${total} answered (${pct}%)`;
 }
 
-// Attach event listeners
 document.querySelectorAll('[data-key]').forEach(el => {
   const eventType = el.type === 'checkbox' ? 'change' : 'input';
   el.addEventListener(eventType, () => {
@@ -697,7 +526,6 @@ document.querySelectorAll('[data-key]').forEach(el => {
     updateProgress();
     scheduleSave();
   });
-  // Also save on blur for good measure
   if (el.type !== 'checkbox') {
     el.addEventListener('blur', () => {
       if (responses[el.dataset.key] !== undefined) scheduleSave();
@@ -705,7 +533,6 @@ document.querySelectorAll('[data-key]').forEach(el => {
   }
 });
 
-// Init
 loadResponses();
 updateProgress();
 </script>
