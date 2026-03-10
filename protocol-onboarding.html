@@ -453,26 +453,37 @@ const SLUG = 'protocol-onboarding';
 
 let responses = {};
 let saveTimeout = null;
+let rowExists = false;
+
+const HEADERS = {
+  'apikey': SUPABASE_KEY,
+  'Authorization': `Bearer ${SUPABASE_KEY}`,
+  'Content-Type': 'application/json'
+};
+const FILTER = `client_id=eq.${CLIENT_ID}&questionnaire_slug=eq.${SLUG}`;
 
 async function loadResponses() {
   try {
     const res = await fetch(
-      `${SUPABASE_URL}/rest/v1/questionnaire_responses?client_id=eq.${CLIENT_ID}&questionnaire_slug=eq.${SLUG}&select=responses`,
-      { headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` } }
+      `${SUPABASE_URL}/rest/v1/questionnaire_responses?${FILTER}&select=responses`,
+      { headers: HEADERS }
     );
     const data = await res.json();
-    if (data.length > 0 && data[0].responses) {
-      responses = data[0].responses;
-      document.querySelectorAll('[data-key]').forEach(el => {
-        const val = responses[el.dataset.key];
-        if (val === undefined || val === null) return;
-        if (el.type === 'checkbox') {
-          el.checked = val === 'yes';
-        } else {
-          el.value = val;
-        }
-      });
-      updateProgress();
+    if (data.length > 0) {
+      rowExists = true;
+      if (data[0].responses && Object.keys(data[0].responses).length > 0) {
+        responses = data[0].responses;
+        document.querySelectorAll('[data-key]').forEach(el => {
+          const val = responses[el.dataset.key];
+          if (val === undefined || val === null) return;
+          if (el.type === 'checkbox') {
+            el.checked = val === 'yes';
+          } else {
+            el.value = val;
+          }
+        });
+        updateProgress();
+      }
     }
   } catch (e) { console.error('Load error:', e); }
 }
@@ -480,31 +491,48 @@ async function loadResponses() {
 async function saveResponses() {
   const banner = document.getElementById('saveBanner');
   try {
-    const res = await fetch(
-      `${SUPABASE_URL}/rest/v1/questionnaire_responses?on_conflict=client_id,questionnaire_slug`,
-      {
-        method: 'POST',
-        headers: {
-          'apikey': SUPABASE_KEY,
-          'Authorization': `Bearer ${SUPABASE_KEY}`,
-          'Content-Type': 'application/json',
-          'Prefer': 'resolution=merge-duplicates,return=minimal'
-        },
-        body: JSON.stringify({
-          client_id: CLIENT_ID,
-          questionnaire_slug: SLUG,
-          responses: responses,
-          updated_at: new Date().toISOString()
-        })
-      }
-    );
+    let res;
+    if (rowExists) {
+      // UPDATE existing row via PATCH
+      res = await fetch(
+        `${SUPABASE_URL}/rest/v1/questionnaire_responses?${FILTER}`,
+        {
+          method: 'PATCH',
+          headers: { ...HEADERS, 'Prefer': 'return=minimal' },
+          body: JSON.stringify({ responses: responses })
+        }
+      );
+    } else {
+      // INSERT new row via POST
+      res = await fetch(
+        `${SUPABASE_URL}/rest/v1/questionnaire_responses`,
+        {
+          method: 'POST',
+          headers: { ...HEADERS, 'Prefer': 'return=minimal' },
+          body: JSON.stringify({
+            client_id: CLIENT_ID,
+            questionnaire_slug: SLUG,
+            responses: responses
+          })
+        }
+      );
+      if (res.ok) rowExists = true;
+    }
     if (res.ok) {
-      banner.textContent = 'Saved';
+      banner.textContent = '\u2713 Saved';
       banner.classList.add('visible');
       setTimeout(() => banner.classList.remove('visible'), 1500);
+    } else {
+      const err = await res.text();
+      console.error('Save error:', res.status, err);
+      banner.textContent = 'Save error (' + res.status + ')';
+      banner.style.background = '#dc2626';
+      banner.classList.add('visible');
+      setTimeout(() => { banner.classList.remove('visible'); banner.style.background = ''; }, 3000);
     }
   } catch (e) {
-    banner.textContent = 'Save failed — will retry';
+    console.error('Save exception:', e);
+    banner.textContent = 'Save failed \u2014 will retry';
     banner.style.background = '#dc2626';
     banner.classList.add('visible');
     setTimeout(() => { banner.classList.remove('visible'); banner.style.background = ''; }, 3000);
